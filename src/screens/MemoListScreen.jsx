@@ -14,7 +14,7 @@ export default function MemoListScreen() {
       {/** memoListView */}
       <MemoList />
       {/** createButtonView */}
-      <CircleButton>+</CircleButton>
+      <CircleButton name="plus" />
     </View>
   );
 }
