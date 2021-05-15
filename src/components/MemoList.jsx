@@ -1,49 +1,71 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity,
+  View, Text, StyleSheet, TouchableOpacity, Alert,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import Icon from './Icon';
 
 export default function MemoList() {
+  // スクリーン以外のcomponentでNavigationを取得する
+  const navigation = useNavigation();
   return (
     <View>
       {/** memoListItem */}
-      <View style={styles.memoListItem}>
+      <TouchableOpacity
+        style={styles.memoListItem}
+        onPress={() => { navigation.navigate('MemoDetail'); }}
+      >
         {/** memoTitleView */}
         <View>
           <Text style={styles.memoListItemTitle}>買い物リスト</Text>
           <Text style={styles.memoListItemDate}>2020年04月28日</Text>
         </View>
         {/** deleteButtonView */}
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => { Alert.alert('Are you Sure?'); }}
+          style={styles.delete}
+        >
           <Icon name="delete" size={32} color="#B0B0B0" />
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
       {/** memoListItem */}
-      <View style={styles.memoListItem}>
+      <TouchableOpacity
+        style={styles.memoListItem}
+        onPress={() => { navigation.navigate('MemoDetail'); }}
+      >
         {/** memoTitleView */}
         <View>
           <Text style={styles.memoListItemTitle}>買い物リスト</Text>
           <Text style={styles.memoListItemDate}>2020年04月28日</Text>
         </View>
         {/** deleteButtonView */}
-        <TouchableOpacity>
+        {/** deleteButtonView */}
+        <TouchableOpacity
+          onPress={() => { Alert.alert('Are you Sure?'); }}
+          style={styles.delete}
+        >
           <Icon name="delete" size={32} color="#B0B0B0" />
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
       {/** memoListItem */}
-      <View style={styles.memoListItem}>
+      <TouchableOpacity
+        style={styles.memoListItem}
+        onPress={() => { navigation.navigate('MemoDetail'); }}
+      >
         {/** memoTitleView */}
         <View>
           <Text style={styles.memoListItemTitle}>買い物リスト</Text>
           <Text style={styles.memoListItemDate}>2020年04月28日</Text>
         </View>
         {/** deleteButtonView */}
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => { Alert.alert('Are you Sure?'); }}
+          style={styles.delete}
+        >
           <Icon name="delete" size={32} color="#B0B0B0" />
         </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -67,5 +89,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     color: '#848484',
+  },
+  delete: {
+    padding: 8,
   },
 });
