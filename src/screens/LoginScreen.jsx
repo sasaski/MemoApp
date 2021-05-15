@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View, Text, TextInput, StyleSheet, TouchableOpacity,
 } from 'react-native';
@@ -7,13 +7,31 @@ import Button from '../components/Button';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
+  const [email , setEmail] = useState('');
+  const [password , setPassword] = useState('');
   return (
     <View style={styles.container}>
       <View style={styles.loginContainer}>
         <View>
           <Text style={styles.loginTitle}>Login</Text>
-          <TextInput placeholder="Email Address" style={[styles.textInput, styles.emailAddress]} />
-          <TextInput placeholder="Password" style={[styles.textInput, styles.password]} />
+          <TextInput
+            placeholder="Email Address"
+            style={[styles.textInput, styles.emailAddress]}
+            value={email}
+            onChangeText={(text) => { setEmail(text); }}
+            autoCapitalize="none"
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
+          <TextInput
+            placeholder="Password"
+            style={[styles.textInput, styles.password]}
+            value={password}
+            onChangeText={(text) => { setPassword(text); }}
+            autoCapitalize="none"
+            textContentType="password"
+            secureTextEntry
+          />
         </View>
         <Button
           label="Submit"
