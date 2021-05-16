@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import firebase from 'firebase';
 
 // Screen Import Location
 import MemoListScreen from './src/screens/MemoListScreen';
@@ -12,7 +13,17 @@ import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
 
+/** env import */
+import { firebaseConfig } from './env';
+
+// Stack Navigator
 const Stack = createStackNavigator();
+
+// firebaseが初期化されていたら、初期化処理を行わない。以下分岐は初期化せれているAPPの数を返却してくれる
+if (firebase.apps.length === 0) {
+  // firebaseの初期化を行う
+  firebase.initializeApp(firebaseConfig);
+}
 
 export default function App() {
   return (

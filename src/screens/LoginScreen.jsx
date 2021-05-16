@@ -1,14 +1,37 @@
 import React, { useState } from 'react';
 import {
-  View, Text, TextInput, StyleSheet, TouchableOpacity,
+  View, Text, TextInput, StyleSheet, TouchableOpacity, Alert,
 } from 'react-native';
+import firebase from 'firebase';
 
 import Button from '../components/Button';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
-  const [email , setEmail] = useState('');
-  const [password , setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Login処理
+  const handlePress = () => {
+    // firebaseのログイン機能を使用
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      // ログイン成功時
+      .then((userCredentail) => {
+        const { user } = userCredentail;
+        console.log(user.uid);
+        // MemoListScreenへ遷移
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemoList' }],
+        });
+      })
+      // ログイン失敗時
+      .catch((error) => {
+        console.log(error.code, error.messge);
+        Alert.alert(error.code);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.loginContainer}>
@@ -35,12 +58,7 @@ export default function LoginScreen(props) {
         </View>
         <Button
           label="Submit"
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'MemoList' }],
-            });
-          }}
+          onPress={handlePress}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Not registered?</Text>

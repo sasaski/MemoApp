@@ -1,14 +1,38 @@
 import React, { useState } from 'react';
 import {
-  View, Text, TextInput, StyleSheet, TouchableOpacity,
+  View, Text, TextInput, StyleSheet, TouchableOpacity, Alert,
 } from 'react-native';
+import firebase from 'firebase';
 
 import Button from '../components/Button';
 
 export default function SignUpScreen(props) {
   const { navigation } = props;
-  const [email , setEmail] = useState('');
-  const [password , setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // 登録処理 function
+  const handlePress = () => {
+    // firebaseへemail,passwordの登録
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      // 登録に成功した場合
+      .then((userCredentaial) => {
+        const { user } = userCredentaial;
+        // 引数からuserIdを取得する
+        console.log(user.uid);
+        // MemoListScreenへ遷移
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemoList' }],
+        });
+      })
+      // 登録処理失敗時
+      .catch((error) => {
+        console.log(error.code, error.message);
+        Alert.alert(error.code);
+      });
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.loginContainer}>
@@ -35,12 +59,7 @@ export default function SignUpScreen(props) {
         </View>
         <Button
           label="Submit"
-          onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: 'MemoList' }],
-            });
-          }}
+          onPress={handlePress}
         />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Already registered?</Text>
