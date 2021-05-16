@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+// useState 状態を保持する
+// useEffect 画面を表示したときに実行する
+import React, { useState, useEffect } from 'react';
 import {
   View, Text, TextInput, StyleSheet, TouchableOpacity, Alert,
 } from 'react-native';
@@ -10,6 +12,24 @@ export default function LoginScreen(props) {
   const { navigation } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // 画面表示時に実行されるhooks
+  useEffect(() => {
+    // ユーザ監視は画面遷移時に消すため、firebase.auth().onAuthStateChangedから監視終了用のコールバック関数を取得する
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        // MemoListScreenへ遷移
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'MemoList' }],
+        });
+      }
+      // 監視終了のコールバック関数の返却
+      return unsubscribe;
+    });
+  // userEffectの第二引数に配列を設定することで画面表示の初回のみ実行
+  // 第二引数を設定しないと、Propsの変化時にも実行されてしまう。
+  }, []);
 
   // Login処理
   const handlePress = () => {
