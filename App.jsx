@@ -16,14 +16,16 @@ import SignUpScreen from './src/screens/SignUpScreen';
 /** env import */
 import { firebaseConfig } from './env';
 
-// Stack Navigator
-const Stack = createStackNavigator();
+// firebaseのデータベースの使用宣言
+require('firebase/firestore');
 
 // firebaseが初期化されていたら、初期化処理を行わない。以下分岐は初期化せれているAPPの数を返却してくれる
 if (firebase.apps.length === 0) {
   // firebaseの初期化を行う
   firebase.initializeApp(firebaseConfig);
 }
+// Stack Navigator
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
