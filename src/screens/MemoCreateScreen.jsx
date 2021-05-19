@@ -23,7 +23,7 @@ export default function MemoCreateScreen(props) {
     ref.add({
       // 保存したいデータのkeyとvalueが同じとき下記のような書き方でOK
       bodyText,
-      upDatedAt: new Date(),
+      updatedAt: new Date(),
     })
       // 作成成功時、docRefは成功したドキュメント
       .then((docRef) => {

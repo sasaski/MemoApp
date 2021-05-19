@@ -24,11 +24,11 @@ export default function LoginScreen(props) {
           routes: [{ name: 'MemoList' }],
         });
       }
-      // 監視終了のコールバック関数の返却
-      return unsubscribe;
     });
-  // userEffectの第二引数に配列を設定することで画面表示の初回のみ実行
-  // 第二引数を設定しないと、Propsの変化時にも実行されてしまう。
+    // userEffectの第二引数に配列を設定することで画面表示の初回のみ実行
+    // 第二引数を設定しないと、Propsの変化時にも実行されてしまう。
+    // 監視終了のコールバック関数の返却
+    return unsubscribe;
   }, []);
 
   // Login処理
