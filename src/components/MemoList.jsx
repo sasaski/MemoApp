@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  View, Text, StyleSheet, TouchableOpacity, Alert,
+  View, Text, StyleSheet, TouchableOpacity, Alert, FlatList,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -13,29 +13,37 @@ export default function MemoList(props) {
   const { memos } = props;
   // スクリーン以外のcomponentでNavigationを取得する
   const navigation = useNavigation();
+
+  function renderItem({ item }) {
+    return (
+      <TouchableOpacity
+        key={item.id}
+        style={styles.memoListItem}
+        onPress={() => { navigation.navigate('MemoDetail'); }}
+      >
+        {/** memoTitleView */}
+        <View>
+          <Text style={styles.memoListItemTitle} numberOfLines={1} ellipsizeMode="clip">{item.bodyText}</Text>
+          <Text style={styles.memoListItemDate}>{String(item.updatedAt)}</Text>
+        </View>
+        {/** deleteButtonView */}
+        <TouchableOpacity
+          onPress={() => { Alert.alert('Are you Sure?'); }}
+          style={styles.delete}
+        >
+          <Icon name="delete" size={32} color="#B0B0B0" />
+        </TouchableOpacity>
+      </TouchableOpacity>
+    );
+  }
+
   return (
     <View>
-      {/** memosを回して、構造を作成回す */}
-      {memos.map((memo) => (
-        <TouchableOpacity
-          key={memo.id}
-          style={styles.memoListItem}
-          onPress={() => { navigation.navigate('MemoDetail'); }}
-        >
-          {/** memoTitleView */}
-          <View>
-            <Text style={styles.memoListItemTitle}>{memo.bodyText}</Text>
-            <Text style={styles.memoListItemDate}>{String(memo.updatedAt)}</Text>
-          </View>
-          {/** deleteButtonView */}
-          <TouchableOpacity
-            onPress={() => { Alert.alert('Are you Sure?'); }}
-            style={styles.delete}
-          >
-            <Icon name="delete" size={32} color="#B0B0B0" />
-          </TouchableOpacity>
-        </TouchableOpacity>
-      ))}
+      <FlatList
+        data={memos}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+      />
     </View>
   );
 }
