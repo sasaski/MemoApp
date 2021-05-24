@@ -7,11 +7,13 @@ import {
 import firebase from 'firebase';
 
 import Button from '../components/Button';
+import Loading from '../components/Loading';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setLoading] = useState(true);
 
   // 画面表示時に実行されるhooks
   useEffect(() => {
@@ -23,6 +25,8 @@ export default function LoginScreen(props) {
           index: 0,
           routes: [{ name: 'MemoList' }],
         });
+      } else {
+        setLoading(false);
       }
     });
     // userEffectの第二引数に配列を設定することで画面表示の初回のみ実行
@@ -33,6 +37,7 @@ export default function LoginScreen(props) {
 
   // Login処理
   const handlePress = () => {
+    setLoading(true);
     // firebaseのログイン機能を使用
     firebase.auth().signInWithEmailAndPassword(email, password)
       // ログイン成功時
@@ -49,11 +54,15 @@ export default function LoginScreen(props) {
       .catch((error) => {
         console.log(error.code, error.messge);
         Alert.alert(error.code);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   return (
     <View style={styles.container}>
+      <Loading isLoading={isLoading} />
       <View style={styles.loginContainer}>
         <View>
           <Text style={styles.loginTitle}>Login</Text>

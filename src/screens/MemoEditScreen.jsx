@@ -21,7 +21,8 @@ export default function MemoEditScreen(props) {
       ref.set({
         bodyText: body,
         updatedAt: new Date(),
-      })
+        // 作成日を消したくないとかそういう要件があった場合、たいたい
+      }, { merge: true })
         .then(() => {
           navigation.goBack();
         })
