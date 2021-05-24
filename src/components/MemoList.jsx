@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import {
   shape, string, instanceOf, arrayOf,
 } from 'prop-types';
+import firebase from 'firebase';
 
 import Icon from './Icon';
 import { dateToString } from '../utils';
@@ -15,6 +16,26 @@ export default function MemoList(props) {
   // スクリーン以外のcomponentでNavigationを取得する
   const navigation = useNavigation();
 
+  function deleteMemo(id) {
+    const { currentUser } = firebase.auth();
+    if (currentUser) {
+      const db = firebase.firestore();
+      const ref = db.collection(`users/${currentUser.uid}/memos`).doc(id);
+      Alert.alert('メモを削除します。', 'よろしいですか？', [
+        {
+          text: 'キャンセル',
+          onPress: () => {},
+        },
+        {
+          text: '削除する',
+          style: 'destructive',
+          onPress: () => {
+            ref.delete().catch(() => { Alert.alert('削除に失敗しました'); });
+          },
+        },
+      ]);
+    }
+  }
   function renderItem({ item }) {
     return (
       <TouchableOpacity
@@ -30,7 +51,7 @@ export default function MemoList(props) {
         </View>
         {/** deleteButtonView */}
         <TouchableOpacity
-          onPress={() => { Alert.alert('Are you Sure?'); }}
+          onPress={() => { deleteMemo(item.id); }}
           style={styles.delete}
         >
           <Icon name="delete" size={32} color="#B0B0B0" />
