@@ -31,8 +31,7 @@ export default function MemoCreateScreen(props) {
         console.log('Created!', docRef.id);
         navigation.goBack();
       })
-      .catch((error) => {
-        console.log(error.code, error.messege);
+      .catch(() => {
         Alert.alret('作成に失敗しました');
       });
   };

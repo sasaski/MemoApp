@@ -8,6 +8,7 @@ import firebase from 'firebase';
 
 import Button from '../components/Button';
 import Loading from '../components/Loading';
+import { translateErrors } from '../utils';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
@@ -41,9 +42,7 @@ export default function LoginScreen(props) {
     // firebaseのログイン機能を使用
     firebase.auth().signInWithEmailAndPassword(email, password)
       // ログイン成功時
-      .then((userCredentail) => {
-        const { user } = userCredentail;
-        console.log(user.uid);
+      .then(() => {
         // MemoListScreenへ遷移
         navigation.reset({
           index: 0,
@@ -52,8 +51,8 @@ export default function LoginScreen(props) {
       })
       // ログイン失敗時
       .catch((error) => {
-        console.log(error.code, error.messge);
-        Alert.alert(error.code);
+        const errorMsg = translateErrors(error.code);
+        Alert.alert(errorMsg.title, errorMsg.description);
       })
       .finally(() => {
         setLoading(false);

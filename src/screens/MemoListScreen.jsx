@@ -35,7 +35,6 @@ export default function MemoListScreen(props) {
     // ユーザ情報が取得できているか
     if (currentUser) {
       setLoading(true);
-      console.log(`users/${currentUser.uid}/memos`);
       // ドキュメント取得
       const ref = db.collection(`users/${currentUser.uid}/memos`).orderBy('updatedAt', 'desc');
       //  メソッドを使用すると、ドキュメントをリッスンできる
@@ -44,7 +43,6 @@ export default function MemoListScreen(props) {
         const userMemos = [];
         // ドキュメントがListで取得されるので、forEachで取得する
         snapshot.forEach((doc) => {
-          console.log(doc.id, doc.data());
           // ドキュメントのデータ取得
           const data = doc.data();
           userMemos.push({
@@ -53,12 +51,10 @@ export default function MemoListScreen(props) {
             updatedAt: data.updatedAt.toDate(),
           });
         });
-        console.log('メモ読み込み終了');
         // memodataを格納する
         setMemos(userMemos);
         setLoading(false);
-      }, (error) => {
-        console.log(error);
+      }, () => {
         Alert.alert('データの読み込みに失敗しました');
         setLoading(false);
       });
