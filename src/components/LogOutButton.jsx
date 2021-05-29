@@ -11,16 +11,15 @@ export default function LogOutButton() {
   const handlePress = () => {
     // firebase signout処理
     firebase.auth().signOut()
-      // サインアウト成功時
       .then(() => {
+        // サインアウト成功時
         navigation.reset({
           index: 0,
           routes: [{ name: 'Login' }],
         });
       })
-      // サインアウト失敗時
-      .catch((error) => {
-        console.log(error.code, error.messerg);
+      .catch(() => {
+        // サインアウト失敗時
         Alert.alert('ログアウトに失敗しました');
       });
   };

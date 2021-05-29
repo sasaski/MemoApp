@@ -63,8 +63,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   inputContainer: {
-    paddingVertical: 32,
-    paddingHorizontal: 27,
     flex: 1,
   },
   input: {
@@ -73,5 +71,8 @@ const styles = StyleSheet.create({
     flex: 1,
     // Androidがdefualtがcenterのため、明示的に指定する
     textAlignVertical: 'top',
+    paddingTop: 32,
+    paddingBottom: 32,
+    paddingHorizontal: 27,
   },
 });

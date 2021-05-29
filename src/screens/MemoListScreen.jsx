@@ -16,20 +16,19 @@ export default function MemoListScreen(props) {
   const [memos, setMemos] = useState([]);
   const [isLoading, setLoading] = useState(false);
   // 画面表示時に一度だけ、ログアウトボタンを作成する
+  // firestoreからデータを取得する
   useEffect(() => {
-  // navigationにログアウトボタンを追加する。
+    // navigationにログアウトボタンを追加する。
     navigation.setOptions({
       // logout compornent
       headerRight: () => <LogOutButton />,
     });
-  }, []);
-
-  // firestoreからデータを取得する
-  useEffect(() => {
     // firestoreから取得
     const db = firebase.firestore();
+    console.log('1');
     // firebaseから現在ログイン中のユーザ情報を取得
     const { currentUser } = firebase.auth();
+    console.log('2');
     // 監視キャンセル用変数
     let unsubscribe = () => {};
     // ユーザ情報が取得できているか
@@ -54,7 +53,9 @@ export default function MemoListScreen(props) {
         // memodataを格納する
         setMemos(userMemos);
         setLoading(false);
-      }, () => {
+      }, (error) => {
+        console.log('ここ通ってます');
+        console.log(error.code);
         Alert.alert('データの読み込みに失敗しました');
         setLoading(false);
       });

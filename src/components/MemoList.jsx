@@ -45,7 +45,7 @@ export default function MemoList(props) {
         onPress={() => { navigation.navigate('MemoDetail', { id: item.id }); }}
       >
         {/** memoTitleView */}
-        <View>
+        <View style={styles.memoInner}>
           <Text style={styles.memoListItemTitle} numberOfLines={1} ellipsizeMode="clip">{item.bodyText}</Text>
           <Text style={styles.memoListItemDate}>{dateToString(item.updatedAt)}</Text>
         </View>
@@ -103,5 +103,8 @@ const styles = StyleSheet.create({
   },
   delete: {
     padding: 8,
+  },
+  memoInner: {
+    flex: 1,
   },
 });

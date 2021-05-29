@@ -1,5 +1,6 @@
 /* eslint-disable-next-line */
 import { StatusBar } from 'expo-status-bar';
+import { LogBox } from 'react-native';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
@@ -26,6 +27,7 @@ if (firebase.apps.length === 0) {
 }
 // Stack Navigator
 const Stack = createStackNavigator();
+LogBox.ignoreLogs(['Setting a tiner']);
 
 export default function App() {
   return (

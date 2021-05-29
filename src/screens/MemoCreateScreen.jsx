@@ -26,9 +26,8 @@ export default function MemoCreateScreen(props) {
       updatedAt: new Date(),
     })
       // 作成成功時、docRefは成功したドキュメント
-      .then((docRef) => {
+      .then(() => {
         // docRef.idは成功したドキュメントのデータのidできるようにする。
-        console.log('Created!', docRef.id);
         navigation.goBack();
       })
       .catch(() => {
