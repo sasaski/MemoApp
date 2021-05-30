@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: '#FFFFFF',
     marginBottom: 16,
-    width: 360,
+    width: '100%',
     height: 48,
     borderColor: '#DDDDDD',
     borderWidth: 1,
