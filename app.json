@@ -24,7 +24,7 @@
       "buildNumber": "1.0.0"
     },
     "android": {
-      "packge": "jp.gomakonb.simplememo",
+      "package": "jp.gomakonb.simplememo",
       "versionCode": 1,
       "permissions": [],
       "adaptiveIcon": {

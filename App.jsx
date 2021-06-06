@@ -32,11 +32,13 @@ LogBox.ignoreLogs(['Setting a tiner']);
 export default function App() {
   return (
     <NavigationContainer>
+      {/* eslint-disable-next-line */}
+      <StatusBar style="light" />
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="MemoList"
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#467FD3',
+            backgroundColor: '#000000',
             height: 104,
           },
           headerTitleStyle: {
@@ -45,7 +47,7 @@ export default function App() {
             fontSize: 24,
             fontWeight: 'bold',
           },
-          headerTitle: 'MemoApp',
+          headerTitle: 'SampleMemo',
           headerTintColor: '#FFFFFF',
           headerBackTitle: 'back',
           cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
@@ -53,6 +55,13 @@ export default function App() {
           gestureDirection: 'horizontal',
         }}
       >
+        <Stack.Screen
+          name="MemoList"
+          component={MemoListScreen}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
+          }}
+        />
         <Stack.Screen
           name="Login"
           component={LoginScreen}
@@ -67,7 +76,6 @@ export default function App() {
             cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid,
           }}
         />
-        <Stack.Screen name="MemoList" component={MemoListScreen} />
         <Stack.Screen name="MemoEdit" component={MemoEditScreen} />
         <Stack.Screen name="MemoDetail" component={MemoDetailScreen} />
         <Stack.Screen name="MemoCreate" component={MemoCreateScreen} />

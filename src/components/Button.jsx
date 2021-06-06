@@ -26,7 +26,7 @@ Button.defaultProps = {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#467FD3',
+    backgroundColor: '#000000',
     width: 99,
     height: 48,
     borderRadius: 4,

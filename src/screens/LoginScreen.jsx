@@ -9,33 +9,16 @@ import firebase from 'firebase';
 import Button from '../components/Button';
 import Loading from '../components/Loading';
 import { translateErrors } from '../utils';
+import CancelButton from '../components/CancelButton';
 
 export default function LoginScreen(props) {
   const { navigation } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   // 画面表示時に実行されるhooks
-  useEffect(() => {
-    // ユーザ監視は画面遷移時に消すため、firebase.auth().onAuthStateChangedから監視終了用のコールバック関数を取得する
-    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // MemoListScreenへ遷移
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'MemoList' }],
-        });
-      } else {
-        setLoading(false);
-      }
-    });
-    // userEffectの第二引数に配列を設定することで画面表示の初回のみ実行
-    // 第二引数を設定しないと、Propsの変化時にも実行されてしまう。
-    // 監視終了のコールバック関数の返却
-    return unsubscribe;
-  }, []);
-
+  useEffect(() => { navigation.setOptions({ headerRight: () => <CancelButton /> }); }, []);
   // Login処理
   const handlePress = () => {
     setLoading(true);
@@ -109,7 +92,7 @@ export default function LoginScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0F4F8',
+    backgroundColor: '#DDDDDD',
   },
   loginContainer: {
     paddingVertical: 24,
